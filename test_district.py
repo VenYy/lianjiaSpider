@@ -5,7 +5,7 @@ from threading import Thread
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import QueuePool
-from db.model import House, engine
+from db.model import Houses, engine, session_factory
 
 from lib.request.headers import *
 from lib.request.proxies import *
@@ -28,16 +28,6 @@ def parse_html(url):
     resp_content = resp.content.decode("utf-8")
     root = etree.HTML(resp_content)
     return root
-
-    # 处理详情页内
-    # ...
-
-
-def session_factory():
-    """创建一个新的Session对象"""
-    return Session(bind=engine)
-    # Session = sessionmaker(bind=engine)
-    # return Session()
 
 
 # 创建Session对象池，包含 5 个 Session 对象
@@ -89,7 +79,7 @@ def worker():
             if len(facilities) == 0:
                 facilities = "无"
             # 查询数据库中是否已存在当前房源
-            house = session.query(House).filter_by(id_=id).first()
+            house = session.query(Houses).filter_by(id_=id).first()
             if house:
                 # 如果已存在， 则更新数据
                 house.title = title
@@ -110,11 +100,11 @@ def worker():
 
             else:
                 # 将数据存入数据库
-                house = House(title=title, id_=id, village_name=village_name, img_src=img_src, price=price,
-                              rent_type=rent_type,
-                              rooms=rooms, area=area, direction=direction, floor_type=floor_type, floor_num=floor_num,
-                              facilities=facilities,
-                              city=city_zh, district=district_zh)
+                house = Houses(title=title, id_=id, village_name=village_name, img_src=img_src, price=price,
+                               rent_type=rent_type,
+                               rooms=rooms, area=area, direction=direction, floor_type=floor_type, floor_num=floor_num,
+                               facilities=facilities,
+                               city=city_zh, district=district_zh)
                 print(house)
                 session.add(house)
                 session.commit()
@@ -131,9 +121,9 @@ def worker():
 
 
 q = Queue()
-position = 0
+position = 50
 
-for i in range(1, 10):
+for i in range(1, 4):
     city_zh = district_list[position]["city_zh"]
     city_en = district_list[position]["city_en"]
     district_zh = district_list[position]["district_zh"]

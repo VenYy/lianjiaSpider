@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+{% block additional_files %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/showChart.js') }}"></script>
+    <script type="text/javascript">
+        var houseData = JSON.parse('{{ house_data|safe }}')
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="basic_info">
+        <div class="info-district"><p class="info_count">{{ district_count }}</p><p>城市数量</p></div>
+        <div class="info-village"><p class="info_count">{{ village_count }}</p><p>小区数量</p></div>
+        <div class="info-house"><p class="info_count">{{ houses_count }}</p><p>现有房源</p></div>
+    </div>
+    <div id="main"></div>
+    <div id="chart1"></div>
+    <div id="chart2"></div>
+
+{% endblock %}
+

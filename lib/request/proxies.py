@@ -10,7 +10,8 @@ import requests
 
 
 def get_proxy():
-    return requests.get("http://127.0.0.1:5010/get/").json()
+    proxy_json = requests.get("http://127.0.0.1:5010/get")
+    return proxy_json.json()
 
 
 def delete_proxy(proxy):

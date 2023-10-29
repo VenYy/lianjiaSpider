@@ -1,0 +1,72 @@
+.basic_info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "info-district info-village info-house"
+    "info-district info-village info-house"
+    "info-district info-village info-house";
+    grid-area: basic_info;
+
+    font-size: 20px;
+    font-family: "Microsoft JhengHei UI", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    user-select: none;
+
+}
+
+.info-district {
+    grid-area: info-district;
+}
+
+.info-village {
+    grid-area: info-village;
+}
+
+.info-house {
+    grid-area: info-house;
+}
+
+.info_count {
+    color: goldenrod;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+#main {
+    /*width: 600px;*/
+    /*height: 400px;;*/
+    /*margin: 0 auto;*/
+    vertical-align: center;
+    grid-area: main;
+}
+
+#content {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(6, minmax(200px, 1fr));
+    grid-template-rows: repeat(6, minmax(140px, 1fr));
+    gap: 0px 0px;
+    grid-template-areas:
+    ". . basic_info basic_info . ."
+    "chart1 chart1 main main . ."
+    "chart1 chart1 main main . ."
+    "chart2 . main main . ."
+    "chart2 . . . . ."
+    ". . . . . .";
+}
+
+
+
+#chart1 {
+    grid-area: chart1;
+    /*padding-left: 20px;*/
+}
+
+#chart2 {
+    grid-area: chart2;
+}
