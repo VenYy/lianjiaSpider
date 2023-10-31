@@ -12,6 +12,7 @@ list_page = Blueprint("list_page", __name__)
 
 @list_page.route("/house_list")
 def house_list():
+    user_input = request.args.get("param")
     city = request.args.get("city", "", type=str)
     district = request.args.get("district", "", type=str)
     rent_type = request.args.get("rent_type", "", type=str)
@@ -29,6 +30,14 @@ def house_list():
     # print(city_districts)
 
     query = Houses.query
+
+    if user_input:
+        query = query.filter(
+            (Houses.city.like(f"%{user_input}%")) |
+            (Houses.district.like(f"%{user_input}%")) |
+            (Houses.village_name.like(f"%{user_input}%")) |
+            (Houses.title.like(f"%{user_input}%"))
+        )
 
     if city:
         query = query.filter(Houses.city == city)
@@ -74,6 +83,7 @@ def house_list():
     return render_template("house_list.html",
                            pagination=pagination,
                            page_num=current_page,
+                           param=user_input,
                            city=city,
                            district=district,
                            rent_type=rent_type,

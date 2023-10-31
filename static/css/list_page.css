@@ -15,11 +15,54 @@ a {
 }
 
 .filter {
+    /*width: 1080px;*/
+    /*margin: 0 auto;*/
+    background: #f5f5f6;
+    padding-bottom: 20px;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+.filter_wrap {
     width: 1080px;
     margin: 0 auto;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ccc;
 }
+
+.search_filter {
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.search_filter .search_wrap {
+    /*display: inline-block;*/
+    display: flex;
+    align-items: center;
+    width: 710px;
+    line-height: 48px;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .1);
+}
+
+.search_wrap input {
+    width: 650px;
+    padding: 16px 23px 17px;
+    box-sizing: border-box;
+    border-width: 0;
+    font-size: 14px;
+    outline: none;
+    border-radius: 5px;
+}
+
+.search_wrap button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background: url("/static/image/search.png") no-repeat;
+    background-size: contain;
+}
+
 
 .filer_ul {
     position: relative;
@@ -46,6 +89,7 @@ a {
     margin-right: 15px;
     font-size: 13px;
 }
+
 .filter_type {
     font-size: 15px;
     font-weight: bold;
@@ -60,13 +104,24 @@ a {
     width: 1080px;
     margin: 0 auto 15px;
     font-size: 16px;
+    font-family: "Microsoft JhengHei UI", sans-serif;
     color: #101d37;
+    font-weight: 600;
 }
+
 .list_title span {
     padding: 0 5px;
     color: #68b374;
     font-size: 18px;
     font-weight: 600;
+}
+
+.list_title a {
+    padding-left: 30px;
+    text-decoration: underline;
+    color: #9399a5;
+    cursor: pointer;
+    font-family: sans-serif;
 }
 
 
@@ -76,23 +131,27 @@ a {
     height: 200px;
     margin: 0 auto 20px;
 }
+
 .cover {
     position: absolute;
     width: 300px;
     left: 0;
     top: 15px;
 }
+
 .cover img {
     max-width: 100%;
     border-radius: 8px;
     /*max-height: 100%;*/
 }
+
 .general_info {
     position: absolute;
     width: 740px;
     left: 340px;
     top: 15px;
 }
+
 .general_info a {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -125,9 +184,11 @@ a {
     font-weight: 600;
     color: #6d6d73;
 }
+
 .general_info .info_facility {
     font-size: 14px;
 }
+
 .info_facility span {
     padding: 3px 8px;
     color: #a19aae;
@@ -145,12 +206,11 @@ a {
     font-size: 14px;
     font-weight: bold;
 }
+
 .info_price .price {
     font-size: 24px;
     font-family: "Tahoma", sans-serif
 }
-
-
 
 
 /*翻页插件效果*/
