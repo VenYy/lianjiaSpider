@@ -121,9 +121,9 @@ def worker():
 
 
 q = Queue()
-position = 50
+position = 74
 
-for i in range(1, 4):
+for i in range(1, 6):
     city_zh = district_list[position]["city_zh"]
     city_en = district_list[position]["city_en"]
     district_zh = district_list[position]["district_zh"]

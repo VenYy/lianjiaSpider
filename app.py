@@ -1,22 +1,32 @@
 import json
+import math
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from sqlalchemy import func
 
 from charts import charts
+from list_page import list_page
+
+from db.settings import Config, db
 from lib.geo.mapCity import map_city
-from db.model import Houses, City, District, session_factory, Village
+from db.model import Houses, City, District, Village
 
 app = Flask(__name__)
+app.config.from_object(Config)
+app.secret_key = "123@123"
+
+db.init_app(app)
+
+# 注册蓝图
 app.register_blueprint(charts)
+app.register_blueprint(list_page)
 
 
 @app.route("/")
 def index():
-    session = session_factory()
     # 查询各 city 和 district 下的房源总数
-    city_data = session.query(Houses.city, func.count(Houses.id_)).group_by(Houses.city).all()
-    district_data = session.query(
+    city_data = Houses.query.with_entities(Houses.city, func.count(Houses.id_)).group_by(Houses.city).all()
+    district_data = Houses.query.with_entities(
         Houses.city, Houses.district, func.count(Houses.id_)
     ).group_by(Houses.city, Houses.district).all()
 
@@ -26,9 +36,9 @@ def index():
     for city, district, count in district_data:
         house_data.append({"name": map_city(district), "value": count})
 
-    district_count = session.query(District).count()
-    village_count = session.query(Village).count()
-    houses_count = session.query(Houses).count()
+    district_count = District.query.count()
+    village_count = Village.query.count()
+    houses_count = Houses.query.count()
 
     return render_template("index.html",
                            house_data=json.dumps(house_data),

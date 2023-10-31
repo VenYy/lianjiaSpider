@@ -18,5 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
             chart2.setOption(JSON.parse(option))
         }
     })
+    const chart3 = echarts.init(document.getElementById("chart3"))
+    $.ajax({
+        type: "json",
+        method: "GET",
+        url: "/charts/chart3",
+        success: function (option) {
+            chart3.setOption(JSON.parse(option))
+        }
+    })
 
 })

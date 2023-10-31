@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% block additional_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_page.css') }}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="leftTop">
+        <div id="openNav" onclick="openNav()">&#9776; OPEN</div>
+    </div><br>
+    {#  房源过滤  #}
+    <div class="filter">
+        <ul class="filer_ul by_city">
+            <li class="filter_type">按区域</li>
+            <br>
+            <li{% if not request.args.get('city') and not request.args.get('district') %} class="strong"{% endif %}><a
+                    href="{{ url_for('list_page.house_list',
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">不限</a></li>
+            {% for city in city_districts.keys() %}
+                <li{% if request.args.get('city') == city %} class="strong"{% endif %}><a
+                        href="{{ url_for('list_page.house_list',
+                        city=city,
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">{{ city }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="filer_ul by_district">
+            <li{% if not request.args.get('district') %} class="strong"{% endif %}><a
+                    href="{{ url_for('list_page.house_list',
+                    city=city,
+                    rent_type=rent_type,
+                    rooms=rooms,
+                    direction=direction,
+                    price=price) }}">不限</a></li>
+            {% for district in city_districts[request.args.get('city')] %}
+                <li{% if request.args.get('district') == district %} class="strong"{% endif %}><a
+                        href="{{ url_for('list_page.house_list',
+                        city=city,
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">{{ district }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="filer_ul by_rent_type">
+            <li class="filter_type">按方式</li>
+            <br>
+            <li{% if not request.args.get('rent_type') %} class="strong"{% endif %}><a
+                    href="{{ url_for('list_page.house_list',
+                    city=city,
+                    district=district,
+                    rooms=rooms,
+                    direction=direction,
+                    price=price) }}">不限</a></li>
+            {% for rent_type in ["整租", "合租"] %}
+                <li{% if request.args.get('rent_type') == rent_type %} class="strong"{% endif %}><a
+                        href="{{ url_for('list_page.house_list',
+                        city=city,
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">{{ rent_type }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="filer_ul by_rooms">
+            <li class="filter_type">按户型</li>
+            <br>
+            <li{% if not request.args.get('rooms') %} class="strong"{% endif %}><a
+                    href="{{ url_for('list_page.house_list',
+                    city=city,
+                    district=district,
+                    rent_type=rent_type,
+                    direction=direction,
+                    price=price) }}">不限</a></li>
+            {% for rooms in ["1室", "2室", "3室", "4室", "5室以上"] %}
+                <li{% if request.args.get('rooms') == rooms %} class="strong"{% endif %}><a
+                        href="{{ url_for('list_page.house_list',
+                        city=city,
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">{{ rooms }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="filer_ul by_direction">
+            <li class="filter_type">按朝向</li>
+            <br>
+            <li{% if not request.args.get('direction') %} class="strong"{% endif %}><a
+                    href="{{ url_for('list_page.house_list',
+                    city=city,
+                    district=district,
+                    rent_type=rent_type,
+                    rooms=rooms,
+                    price=price) }}">不限</a></li>
+            {% for direction in ["东", "西", "南", "北", "南/北", "其他"] %}
+                <li{% if request.args.get('direction') == direction %} class="strong"{% endif %}><a
+                        href="{{ url_for('list_page.house_list',
+                        city=city,
+                        district=district,
+                        rent_type=rent_type,
+                        rooms=rooms,
+                        direction=direction,
+                        price=price) }}">{{ direction }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="filer_ul by_price">
+            <li class="filter_type">按价格</li>
+            <br>
+            <li{% if not request.args.get("price_range") %}
+                class="strong"{% endif %}>
+                <a href="{{ url_for('list_page.house_list',
+                    city=city,
+                    district=district,
+                    rent_type=rent_type,
+                    rooms=rooms,
+                    direction=direction) }}">不限</a>
+            </li>
+            {% for price in ["0-1000", "1000-2000", "2000-3000", "3000-4000", "4000-5000", "5000以上"] %}
+                <li{% if request.args.get('price') == price %} class="strong"{% endif %}><a href="{{ url_for('list_page.house_list',
+                    city=city,
+                    district=district,
+                    rent_type=rent_type,
+                    rooms=rooms,
+                    direction=direction,
+                    price=price) }}">{{ price }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    {# 房源列表 #}
+    <div class="house_list">
+        <p class="list_title">当前共有<span>{{ total_count }}</span>套{{ city }}{{ district }}房源</p>
+        {% for item in pagination.items %}
+            <div class="house_info">
+                <div class="cover"><img src="{{ item.img_src }}" alt=""></div>
+                <div class="general_info">
+                    <p class="info_title"><a
+                            href="https://{{ item.city|trans_city }}.lianjia.com/zufang/{{ item.id_ }}.html">{{ item.title }}</a>
+                    </p>
+                    <p class="info_des">
+                        <a href="">{{ item.district }}</a>
+                        -
+                        <a href="">{{ item.village_name }}</a>
+                        <i>/</i>
+                        {{ item.area }}
+                        <i>/</i>
+                        {{ item.direction }}
+                        <i>/</i>
+                        {{ item.rooms }}
+                    </p>
+                    <p class="info_facility">
+                        {% for f in item.facilities|deal_facility %}
+                            <span>{{ f }}</span>
+                        {% endfor %}
+                    </p>
+                    <p class="info_floor">
+                        {{ item.floor_type }}-{{ item.floor_num }}楼<i>/</i>{{ item.rent_type }}
+                    </p>
+                    <p class="info_price">
+                        <span class="price">{{ item.price }}</span>&nbsp;&nbsp;元/每月
+                    </p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    {# 分页功能 #}
+    <div class="pagination">
+        {% if pagination.has_prev %}
+            <span>
+            <a class='page-number'
+               href="{{ url_for('list_page.house_list', city=city, district=district, page=pagination.prev_num) }}">
+                {{ '上一页' }}
+            </a>
+        </span>
+        {% endif %}
+
+        {% for page in pagination.iter_pages() %}
+            {% if page %}
+                {% if pagination.page != page %}
+                    <span>
+                    <a class='page-number'
+                       href="{{ url_for('list_page.house_list', city=city, district=district, page=page) }}">
+                        {{ page }}
+                    </a>
+                </span>
+                {% else %}
+                    <a href="" class="current-page-number"
+                       style="background: #17a2b8; color: white; font-weight: bold">{{ page }}</a>
+                {% endif %}
+            {% else %}
+                <span style="margin: 0 10px">...</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+            <span>
+            <a class='page-number'
+               href="{{ url_for('list_page.house_list', city=city, district=district, page=pagination.next_num) }}">
+                {{ '下一页' }}
+            </a>
+        </span>
+        {% endif %}
+    </div>
+
+{% endblock %}

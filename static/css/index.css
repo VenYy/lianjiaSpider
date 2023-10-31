@@ -1,4 +1,37 @@
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+    background: url("/static/image/bg.png") no-repeat;
+    background-size: cover;
+}
+
+.leftTop {
+    grid-area: leftTop;
+}
+
+.page_title {
+    margin-left: 50px;
+    float: left;
+    width: 400px;
+    height: 80px;
+
+    background: url("/static/image/title_b.png") no-repeat;
+    background-size: contain;
+    user-select: none;
+
+     /* 使用 Flexbox 布局 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+
+
+
 .basic_info {
+
+    color: #f1f1f1;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr 1fr;
@@ -9,7 +42,7 @@
     "info-district info-village info-house";
     grid-area: basic_info;
 
-    font-size: 20px;
+    font-size: 25px;
     font-family: "Microsoft JhengHei UI", sans-serif;
     font-weight: bold;
     text-align: center;
@@ -38,35 +71,60 @@
 
 
 #main {
-    /*width: 600px;*/
-    /*height: 400px;;*/
-    /*margin: 0 auto;*/
     vertical-align: center;
     grid-area: main;
+    background: rgba(54, 71, 95, 0.3);
+    margin: 15px;
+    border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 100%, cyan 100%);
+    border-image-slice: 1;
+    border-width: 1px;
+    border-style: solid;
 }
 
 #content {
     display: grid;
     height: 100vh;
-    grid-template-columns: repeat(6, minmax(200px, 1fr));
+    grid-template-columns: repeat(6, minmax(260px, 1fr));
     grid-template-rows: repeat(6, minmax(140px, 1fr));
     gap: 0px 0px;
     grid-template-areas:
-    ". . basic_info basic_info . ."
+    "leftTop leftTop basic_info basic_info . ."
     "chart1 chart1 main main . ."
     "chart1 chart1 main main . ."
-    "chart2 . main main . ."
-    "chart2 . . . . ."
+    "chart2 chart3 main main . ."
+    "chart2 chart3 . . . ."
     ". . . . . .";
+    transition: 0.5s;
 }
-
 
 
 #chart1 {
     grid-area: chart1;
-    /*padding-left: 20px;*/
+    margin: 15px;
+    background: rgba(54, 71, 95, 0.3);
+    border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 100%, cyan 100%);
+    border-image-slice: 1;
+    border-width: 1px;
+    border-style: solid;
 }
+
 
 #chart2 {
     grid-area: chart2;
+    margin: 15px;
+    background: rgba(54, 71, 95, 0.3);
+    border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 100%, cyan 100%);
+    border-image-slice: 1;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#chart3 {
+    grid-area: chart3;
+    margin: 15px;
+    background: rgba(54, 71, 95, 0.3);
+    border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 100%, cyan 100%);
+    border-image-slice: 1;
+    border-width: 1px;
+    border-style: solid;
 }

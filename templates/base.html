@@ -5,6 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {#阻止请求附带referrer信息, 以便于显示外链图片#}
+    <meta name="referrer" content="no-referrer"/>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     {% block additional_files %}{% endblock %}
@@ -15,14 +17,13 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{{ url_for('index') }}" class="title">租房数据可视化</a>
-        <a href="#">About</a>
+        <a href="{{ url_for('list_page.house_list') }}">房源列表</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
     </div>
 {% endblock %}
 <div id="content">
-    <span id="openNav" style="font-size:20px;cursor:pointer;user-select: none" onclick="openNav()">&#9776; OPEN</span>
     {% block content %}
     {% endblock %}
 </div>
@@ -30,17 +31,17 @@
     /*打开侧栏，修改侧栏宽度，主体左跨度、背景透明度*/
     function openNav() {
         document.getElementById("mySidenav").style.width = "200px";
-        document.getElementById("content").style.marginLeft = "200px";
+        {#document.getElementById("content").style.marginLeft = "200px";#}
         document.body.style.backgroundColor = "rgba(0,0,0,0.2)";
         document.getElementById("openNav").style.display = 'none'
     }
 
     /*关闭侧栏，恢复原始侧栏宽度，主体左跨度、背景透明度*/
     function closeNav() {
+        document.getElementById("openNav").style.display = 'block'
         document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("content").style.marginLeft = "0";
+        {#document.getElementById("content").style.marginLeft = "0";#}
         document.body.style.backgroundColor = "white";
-        document.getElementById("openNav").style.display = 'contents'
     }
 
 </script>

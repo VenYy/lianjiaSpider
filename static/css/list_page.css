@@ -1,0 +1,170 @@
+ul, li {
+    list-style: none;
+}
+
+li {
+    display: inline
+}
+
+a {
+    text-decoration: none;
+    color: #101d37;
+}
+
+#content {
+}
+
+.filter {
+    width: 1080px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.filer_ul {
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.by_city .strong {
+    font-size: 14px;
+}
+
+.by_district .strong {
+    font-size: 13px;
+}
+
+.strong a {
+    color: #52ae66;
+    font-weight: 600;
+}
+
+
+.filer_ul li {
+    margin-right: 15px;
+    font-size: 13px;
+}
+.filter_type {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.house_list {
+    margin-top: 20px;
+}
+
+.house_list .list_title {
+    width: 1080px;
+    margin: 0 auto 15px;
+    font-size: 16px;
+    color: #101d37;
+}
+.list_title span {
+    padding: 0 5px;
+    color: #68b374;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.house_info {
+    position: relative;
+    width: 1080px;
+    height: 200px;
+    margin: 0 auto 20px;
+}
+.cover {
+    position: absolute;
+    width: 300px;
+    left: 0;
+    top: 15px;
+}
+.cover img {
+    max-width: 100%;
+    border-radius: 8px;
+    /*max-height: 100%;*/
+}
+.general_info {
+    position: absolute;
+    width: 740px;
+    left: 340px;
+    top: 15px;
+}
+.general_info a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.general_info a:hover {
+    color: #52ae66;
+}
+
+.general_info p {
+    margin-bottom: 13px;
+}
+
+.general_info i {
+    font-weight: 400;
+    color: #ccc;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.general_info .info_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #101d37;
+}
+
+.general_info .info_des {
+    font-size: 15px;
+    font-weight: 600;
+    color: #6d6d73;
+}
+.general_info .info_facility {
+    font-size: 14px;
+}
+.info_facility span {
+    padding: 3px 8px;
+    color: #a19aae;
+    background: #f2f5f7;
+    margin-right: 10px;
+}
+
+.general_info .info_floor {
+    color: #6d6d73;
+}
+
+
+.general_info .info_price {
+    color: #fa5741;
+    font-size: 14px;
+    font-weight: bold;
+}
+.info_price .price {
+    font-size: 24px;
+    font-family: "Tahoma", sans-serif
+}
+
+
+
+
+/*翻页插件效果*/
+.pagination {
+    width: 1080px;
+    margin: 0 auto;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.pagination a {
+    padding: 0 10px;
+    text-decoration: none;
+    color: #0589c8;
+    font-size: 15px;
+    border: 1px solid #ccc;
+}

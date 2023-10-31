@@ -1,4 +1,4 @@
-from db.model import House, session_factory
+from db.model import Houses, session_factory
 
 session = session_factory()
 
