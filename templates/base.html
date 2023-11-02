@@ -9,6 +9,7 @@
     <meta name="referrer" content="no-referrer"/>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     {% block additional_files %}{% endblock %}
 </head>
 <body>
@@ -16,9 +17,9 @@
     <!--侧栏界面设计-->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{{ url_for('index') }}" class="title">租房数据可视化</a>
-        <a href="{{ url_for('list_page.house_list') }}">房源列表</a>
-        <a href="#">Services</a>
+        <a id="title" href="{{ url_for('index') }}" class="title">租房数据可视化</a>
+        <a id="house_list" href="{{ url_for('list_page.house_list') }}">房源列表</a>
+        <a id="detail" href="{{ url_for('detail.house_detail') }}">小区详情</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
     </div>
@@ -43,6 +44,19 @@
         {#document.getElementById("content").style.marginLeft = "0";#}
         {#document.body.style.backgroundColor = "white";#}
     }
+
+    var current_url = window.location.pathname
+    if (current_url === "/") {
+        document.getElementById("title").style.color = "white"
+    }
+    if (current_url === "/house_list") {
+        document.getElementById("house_list").style.color = "white"
+    }
+    if (current_url === "/detail") {
+        document.getElementById("detail").style.color = "white"
+    }
+
+
 
 </script>
 </body>

@@ -6,6 +6,7 @@ from sqlalchemy import func
 
 from charts import charts
 from list_page import list_page
+from detail import detail
 
 from db.settings import Config, db
 from lib.geo.mapCity import map_city
@@ -20,6 +21,7 @@ db.init_app(app)
 # 注册蓝图
 app.register_blueprint(charts)
 app.register_blueprint(list_page)
+app.register_blueprint(detail)
 
 
 @app.route("/")

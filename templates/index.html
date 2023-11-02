@@ -14,8 +14,8 @@
 {% block content %}
     <div class="leftTop">
         <div id="openNav" onclick="openNav()">&#9776; OPEN</div>
-        <div class="page_title"></div>
     </div>
+    <div class="page_title"><p>租房网站数据可视化平台</p></div>
     <div class="basic_info">
         <div class="info-district"><p class="info_count">{{ district_count }}</p>
             <p>城市数量</p></div>
@@ -25,9 +25,11 @@
             <p>现有房源</p></div>
     </div>
     <div id="main"></div>
-    <div id="chart1"></div>
-    <div id="chart2"></div>
-    <div id="chart3"></div>
+
+    <div class="chart" id="chart1"></div>
+    <div class="chart" id="chart2"></div>
+    <div class="chart" id="chart3"></div>
+    <div class="chart" id="chart4"></div>
 
 {% endblock %}
 

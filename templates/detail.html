@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block additional_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/detail.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/detail.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="leftTop">
+        <div id="openNav" onclick="openNav()">&#9776; OPEN</div>
+    </div>
+    <div class="select">
+        <div class="tip">请选择需要查询的小区</div>
+        <div class="select_wrap">
+            <select class="selectpicker" name="city_select" id="city_select">
+                {% if city %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% else %}
+                    <option value="">城市</option>
+                {% endif %}
+                {% for city in city_list %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+            <select class="selectpicker" name="district_select" id="district_select" disabled>
+                {% if district %}
+                    <option value="{{ district }}">{{ district }}</option>
+                {% else %}
+                    <option value="">区县</option>
+                {% endif %}
+
+            </select>
+            <select class="selectpicker" name="village_select" id="village_select" disabled>
+                {% if village_name %}
+                    <option value="{{ village_name }}">{{ village_name }}</option>
+                {% else %}
+                    <option value="">小区</option>
+                {% endif %}
+            </select>
+            <button class="req_btn" onclick="getVillageInfo()">查询</button>
+        </div>
+    </div>
+    <div class="charts">
+        <div id="charts_wrap" class="charts_wrap">
+            <div class="title"><p>租金分布情况</p></div>
+            <div class="chart">
+                <div id="chart1"></div>
+                <div class="desc">
+                    <p></p>
+                </div>
+            </div>
+            <div class="title"><p>户型分布情况</p></div>
+            <div class="chart">
+                <div id="chart2"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

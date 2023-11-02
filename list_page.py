@@ -59,17 +59,17 @@ def house_list():
         query = query.filter(Houses.direction == direction)
 
     if price_range:
-        if price_range == "0-1000":
-            query = query.filter(Houses.price.between(0, 2000))
-        elif price_range == "1000-2000":
+        if price_range == "0-1000元":
+            query = query.filter(Houses.price.between(0, 1000))
+        elif price_range == "1000-2000元":
             query = query.filter(Houses.price.between(1000, 2000))
-        elif price_range == "2000-3000":
+        elif price_range == "2000-3000元":
             query = query.filter(Houses.price.between(2000, 3000))
-        elif price_range == "3000-4000":
+        elif price_range == "3000-4000元":
             query = query.filter(Houses.price.between(3000, 4000))
-        elif price_range == "4000-5000":
+        elif price_range == "4000-5000元":
             query = query.filter(Houses.price.between(4000, 5000))
-        elif price_range == "5000以上":
+        elif price_range == "5000元以上":
             query = query.filter(Houses.price >= 5000)
 
     per_page = 30  # 每页的显示数量

@@ -59,7 +59,7 @@ async function initChart() {
     let alladcode = await getGeoJson("all.json")
     let chinaGeoJson = await getGeoJson("330000_full.json")
     initEcharts(chinaGeoJson, "全国", chart, alladcode, houseData)
-    console.log(houseData)
+    // console.log(houseData)
 
 }
 

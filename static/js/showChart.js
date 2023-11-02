@@ -1,31 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const chart1 = echarts.init(document.getElementById("chart1"))
-    $.ajax({
-        type: "json",
-        method: "GET",
-        url: "/charts/chart1",
-        success: function (option) {
-            chart1.setOption(JSON.parse(option))
-        }
-    })
+    function initChart(chartId, chartUrl) {
+        const chart = echarts.init(document.getElementById(chartId));
+        $.ajax({
+            type: "json",
+            method: "GET",
+            url: chartUrl,
+            success: function (option) {
+                chart.setOption(JSON.parse(option));
+            }
+        });
+    }
 
-    const chart2 = echarts.init(document.getElementById("chart2"))
-    $.ajax({
-        type: "json",
-        method: "GET",
-        url: "/charts/chart2",
-        success: function (option) {
-            chart2.setOption(JSON.parse(option))
-        }
-    })
-    const chart3 = echarts.init(document.getElementById("chart3"))
-    $.ajax({
-        type: "json",
-        method: "GET",
-        url: "/charts/chart3",
-        success: function (option) {
-            chart3.setOption(JSON.parse(option))
-        }
-    })
-
-})
+    initChart("chart1", "/charts/chart1");
+    initChart("chart2", "/charts/chart2");
+    initChart("chart3", "/charts/chart3");
+    initChart("chart4", "/charts/chart4");
+});
