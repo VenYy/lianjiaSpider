@@ -95,7 +95,7 @@
 #     return Session(bind=engine)
 #     # Session = sessionmaker(bind=engine)
 #     # return Session()
-
+import json
 
 from db.settings import db
 
@@ -122,20 +122,23 @@ class Houses(db.Model):
     district_ref = db.relationship('District')
 
     def __repr__(self):
-        return (f'<House(id_={self.id_}, '
-                f'title={self.title}, '
-                f'price={self.price}, '
-                f'village_name={self.village_name}, '
-                f'img_src={self.img_src}, '
-                f'rent_type={self.rent_type}, '
-                f'rooms={self.rooms}, '
-                f'area={self.area}, '
-                f'direction={self.direction}, '
-                f'floor_type={self.floor_type}, '
-                f'floor_num={self.floor_num}, '
-                f'facilities={self.facilities},'
-                f'city={self.city},'
-                f'district={self.district})>')
+        house_dict = {
+            "id_": self.id_,
+            "title": self.title,
+            "price": float(self.price),
+            "village_name": self.village_name,
+            "img_src": self.img_src,
+            "rent_type": self.rent_type,
+            "rooms": self.rooms,
+            "area": self.area,
+            "direction": self.direction,
+            "floor_type": self.floor_type,
+            "floor_num": self.floor_num,
+            "facilities": self.facilities,
+            "city": self.city,
+            "district": self.district
+        }
+        return json.dumps(house_dict)
 
 
 class City(db.Model):

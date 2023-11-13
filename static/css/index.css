@@ -98,9 +98,9 @@ body {
     "leftTop page_title page_title page_title page_title ."
     "chart1 chart1 basic_info basic_info chart4 chart4"
     "chart1 chart1 main main chart4 chart4"
-    "chart2 chart3 main main . ."
-    "chart2 chart3 main main . ."
-    ". . . . . ."
+    "chart2 chart3 main main chart5 chart5"
+    "chart2 chart3 main main chart5 chart5"
+    ". . . .  . ."
     ". . . . . .";
     transition: 0.5s;
 }
@@ -132,4 +132,8 @@ body {
 #chart4 {
     grid-area: chart4;
     margin: 0 15px 0 0;
+}
+#chart5 {
+    grid-area: chart5;
+    margin: 15px 15px 15px 0;
 }

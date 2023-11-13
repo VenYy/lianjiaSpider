@@ -27,16 +27,18 @@ app.register_blueprint(detail)
 @app.route("/")
 def index():
     # 查询各 city 和 district 下的房源总数
-    city_data = Houses.query.with_entities(Houses.city, func.count(Houses.id_)).group_by(Houses.city).all()
+    city_data = Houses.query.with_entities(Houses.city, func.count(Houses.id_), func.avg(Houses.price)).group_by(Houses.city).all()
     district_data = Houses.query.with_entities(
-        Houses.city, Houses.district, func.count(Houses.id_)
+        Houses.city, Houses.district, func.count(Houses.id_), func.avg(Houses.price)
     ).group_by(Houses.city, Houses.district).all()
 
     # 将查询结果转换为 ECharts 所需的数据格式
-    house_data = [{"name": map_city(city), "value": count} for city, count in city_data]
+    house_data = [{"name": map_city(city), "value": count} for city, count, _ in city_data]
+    avg_price_data = [{"name": map_city(city), "value": round(float(avg_price), 2)} for city, _, avg_price in city_data]
 
-    for city, district, count in district_data:
+    for city, district, count, avg_price in district_data:
         house_data.append({"name": map_city(district), "value": count})
+        avg_price_data.append({"name": map_city(district), "value": round(float(avg_price), 2)})
 
     district_count = District.query.count()
     village_count = Village.query.count()
@@ -44,6 +46,7 @@ def index():
 
     return render_template("index.html",
                            house_data=json.dumps(house_data),
+                           avg_price_data=json.dumps(avg_price_data),
                            district_count=district_count,
                            village_count=village_count,
                            houses_count=houses_count)

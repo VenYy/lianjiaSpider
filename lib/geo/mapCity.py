@@ -1,4 +1,5 @@
 def map_city(city_name):
+    """使用字典的get方法获取对应城市名的区划名称，如果该城市名不存在于字典中，则返回原城市名。"""
     city_dict = {
         "义乌": "义乌市",
         "台州": "台州市",
@@ -22,5 +23,4 @@ def map_city(city_name):
         "衢州": "衢州市",
         "金华": "金华市"
     }
-    # 使用字典的get方法获取对应城市名的区划名称，如果该城市名不存在于字典中，则返回原城市名。
     return city_dict.get(city_name, city_name)

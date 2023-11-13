@@ -78,33 +78,59 @@ def village_detail():
                 where city = '{city}' and district = '{district}' and village_name = '{village_name}'
                 group by price_segment'''
     price_data = execute_sql(sql)
+    # 最低租金和最高租金
     max_price, min_price = Houses.query \
         .with_entities(func.max(Houses.price), func.min(Houses.price)) \
         .filter(
-            (Houses.city == city) &
-            (Houses.district == district) &
-            (Houses.village_name == village_name)) \
+        (Houses.city == city) &
+        (Houses.district == district) &
+        (Houses.village_name == village_name)) \
         .all()[0]
-    print(max_price, min_price)
-    # print(max_data)
-    # 2500.0
-    # print(price_data)
-    # [('1K~2K', 48), ('2K~3K', 14)]
-    # 租金分布情况饼图
-    # price_pie = gen_pie(title="租金分布", subtitle=None, data=price_data, series_name="房源数量")
+    # 最高租金的房源
+    max_price_house = Houses.query.filter(
+        (Houses.city == city) &
+        (Houses.district == district) &
+        (Houses.village_name == village_name) &
+        (Houses.price == max_price)
+    ).all()[0]
+    # 最低租金的房源
+    min_price_house = Houses.query.filter(
+        (Houses.city == city) &
+        (Houses.district == district) &
+        (Houses.village_name == village_name) &
+        (Houses.price == min_price)
+    ).all()[0]
 
     # 户型分布情况饼图
     rooms_data = Houses.query \
         .with_entities(Houses.rooms, func.count(Houses.rooms)) \
         .filter(
-            (Houses.city == city) &
-            (Houses.district == district) &
-            (Houses.village_name == village_name)) \
+        (Houses.city == city) &
+        (Houses.district == district) &
+        (Houses.village_name == village_name)) \
         .group_by(Houses.rooms) \
         .all()
-    # print(rooms_data)
-    # [('2室2厅1卫', 4), ('2室1厅1卫', 33), ('1室1厅1卫', 24), ('1室0厅1卫', 1)]
-    # rooms_pie = gen_pie(title="户型分布", subtitle=None, data=rooms_data, series_name="房源数量")
+
+    # 房源数量最多的户型名称
+    max_rooms_count = max(rooms_data, key=lambda x: x[1])[1]
+    max_rooms_name = [i[0] for i in rooms_data if i[1] == max_rooms_count][0]
+
+    # 房屋面积与价格的关系散点图
+    scatter_data = [[float(i[0].rstrip("㎡")), float(i[1])] for i in
+                    Houses.query.with_entities(Houses.area, Houses.price).filter(
+                        (Houses.city == city) &
+                        (Houses.district == district) &
+                        (Houses.village_name == village_name)
+                    ).all()]
+
+    # 不同户型的价格比较, 横轴表示房型，纵轴表示平均价格。
+    bar_data = Houses.query.with_entities(Houses.rooms, func.avg(Houses.price)).filter(
+        (Houses.city == city) &
+        (Houses.district == district) &
+        (Houses.village_name == village_name)
+    ).group_by(Houses.rooms).all()
+    rooms_list = [i[0] for i in bar_data]
+    avg_price_list = [float(i[1]) for i in bar_data]
 
     response_data = {
         "status": 1,
@@ -112,7 +138,14 @@ def village_detail():
             "price_data": [{"name": i[0], "value": i[1]} for i in price_data],
             "rooms_data": [{"name": i[0], "value": i[1]} for i in rooms_data],
             "max_price": max_price,
-            "min_price": min_price
+            "min_price": min_price,
+            "max_price_house": max_price_house.__repr__(),
+            "min_price_house": min_price_house.__repr__(),
+            "max_rooms_name": max_rooms_name,
+            "max_rooms_count": max_rooms_count,
+            "scatter_data": scatter_data,
+            "rooms_list": rooms_list,
+            "avg_price_list": avg_price_list
         }
     }
     return jsonify(response_data)

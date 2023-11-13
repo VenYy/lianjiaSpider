@@ -2,7 +2,7 @@ from flask import Blueprint
 from sqlalchemy import func, text
 
 from db.model import Houses
-from pyecharts.charts import Bar, Pie, Grid
+from pyecharts.charts import Bar, Pie, Grid, Boxplot
 from pyecharts import options as opts
 
 from db.settings import db
@@ -168,6 +168,7 @@ def chart4():
     # 各地区房源平均租金情况
     data = [(i[0], round(float(i[1]), 2)) for i in
             Houses.query.with_entities(Houses.city, func.avg(Houses.price)).group_by(Houses.city).all()]
+    # print(data)
     bar = gen_bar(
         title="各城市平均租金",
         subtitle="直观显示各城市租房的价格对比",
@@ -178,3 +179,19 @@ def chart4():
     grid = Grid()
     grid.add(bar, grid_opts=opts.GridOpts(pos_bottom="10%", pos_top="30%", pos_left="15%"))
     return grid.dump_options_with_quotes()
+
+
+# @charts.route("/charts/chart5")
+# def chart5():
+# 箱线图
+#     query_result = Houses.query.with_entities(Houses.price, Houses.city).all()
+#     data = {}
+#     for result in query_result:
+#         if result.city not in data:
+#             data[result.city] = []
+#         data[result.city].append(float(result.price))
+#
+#     x_axis_data = list(data.keys())
+#     y_axis_data = list(data.values())
+#
+#     return {"x_data": x_axis_data, "y_data": y_axis_data}

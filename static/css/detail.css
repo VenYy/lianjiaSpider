@@ -64,11 +64,16 @@
 }
 
 .charts_wrap .title {
+    width: 160px;
+    text-align: center;
     margin-top: 30px;
     font-weight: bold;
     font-size: 20px;
-    color: #0f0f0f;
+    color: whitesmoke;
     font-family: "Microsoft JhengHei UI", sans-serif;
+    background-color: #1b6d85;
+    border-radius: 5px 5px;
+    user-select: none;
 }
 
 .chart {
@@ -79,10 +84,68 @@
 #chart1 {
     width: 300px;
     height: 200px;
+    float: left;
 }
-
+.desc {
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 50px;
+    font-family: "Microsoft JhengHei UI", sans-serif;
+}
+.desc p {
+    margin: 0;
+}
+#max_price_house, #min_price_house {
+    display: inline-block;
+    padding-bottom: 45px;
+    height: 30px;
+    line-height: 30px;
+}
+.house_title {
+    display: inline-block;
+    max-width: 250px;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.house_title a:hover, .house_type a:hover {
+    text-decoration: underline;
+}
+.house_price {
+    display: inline-block;
+    vertical-align: top;
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
 #chart2 {
     width: 300px;
     height: 200px;
+    float: left;
+}
+#max_house_count {
+    display: inline-block;
+}
+.house_type, .house_count {
+    display: inline-block;
+    font-size: 18px;
+    color: #337ab7;
+}
+.house_type {
+    margin-bottom: 15px;
 }
 
+#chart3 {
+    width: 520px;
+    height: 250px;
+    float: left;
+}
+#chart4 {
+    margin-left: 40px;
+    width: 520px;
+    height: 250px;
+    float: left;
+}
