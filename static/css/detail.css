@@ -18,6 +18,11 @@
     margin: 0 auto;
 }
 
+.form-select {
+    display: inline-block;
+    width: 20%;
+}
+
 /*#city_select, #district_select, #village_select {*/
 /*    width: 80px;*/
 /*    text-align: center;*/
@@ -37,8 +42,8 @@
 .req_btn {
     background-color: #ffffff;
     width: 50px;
-    height: 33px;
-    vertical-align: middle;
+    height: 37px;
+    vertical-align: top;
     color: #6c3333;
     border: 1px solid #ccc;
     border-radius: 3px;
