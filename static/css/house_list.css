@@ -37,7 +37,7 @@ a {
     display: flex;
     align-items: center;
     width: 710px;
-    line-height: 48px;
+    /* line-height: 48px; */
     font-size: 14px;
     border-radius: 5px;
     background-color: #fff;
@@ -68,6 +68,7 @@ a {
     position: relative;
     margin-top: 5px;
     margin-bottom: 5px;
+    padding-left: 0;
 }
 
 

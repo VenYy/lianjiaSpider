@@ -1,63 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     {#阻止请求附带referrer信息, 以便于显示外链图片#}
     <meta name="referrer" content="no-referrer"/>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='image/favicon.png') }}">
-    <title>{% block title %}{% endblock %}</title>
+    <link
+            rel="icon"
+            type="image/png"
+            href="{{ url_for('static', filename='image/favicon.png') }}"
+    />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <title>{% block title %}{% endblock %}</title>
     {% block additional_files %}{% endblock %}
 </head>
 <body>
 {% block navbar %}
     <!--侧栏界面设计-->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a id="title" href="{{ url_for('index') }}" class="title">租房数据可视化</a>
-        <a id="house_list" href="{{ url_for('list_page.house_list') }}">房源列表</a>
-        <a id="detail" href="{{ url_for('detail.house_detail') }}">小区详情</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+    <div
+            class="offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel"
+    >
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                租房网站数据可视化平台
+            </h5>
+            <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="dropdown mt-3">
+                <ul>
+                    <li id="index"><a href="{{ url_for('index') }}">首页</a></li>
+                    <li id="house_list"><a href="{{ url_for('list_page.house_list') }}">房源列表</a></li>
+                    <li id="detail"><a href="{{ url_for('detail.house_detail') }}">小区详情</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
-<div id="content">
-    {% block content %}
-    {% endblock %}
-</div>
-<script>
-    /*打开侧栏，修改侧栏宽度，主体左跨度、背景透明度*/
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "200px";
-        {#document.getElementById("content").style.marginLeft = "200px";#}
-        {#document.body.style.backgroundColor = "rgba(0,0,0,0.2)";#}
-        document.getElementById("openNav").style.display = 'none'
-    }
+<div id="content">{% block content %} {% endblock %}</div>
 
-    /*关闭侧栏，恢复原始侧栏宽度，主体左跨度、背景透明度*/
-    function closeNav() {
-        document.getElementById("openNav").style.display = 'block'
-        document.getElementById("mySidenav").style.width = "0";
-        {#document.getElementById("content").style.marginLeft = "0";#}
-        {#document.body.style.backgroundColor = "white";#}
-    }
-
-    var current_url = window.location.pathname
-    if (current_url === "/") {
-        document.getElementById("title").style.color = "white"
-    }
-    if (current_url === "/house_list") {
-        document.getElementById("house_list").style.color = "white"
-    }
-    if (current_url === "/detail") {
-        document.getElementById("detail").style.color = "white"
-    }
-
-
-</script>
 </body>
 </html>

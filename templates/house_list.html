@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block additional_files %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/house_list.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/house_list.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/house_list.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
 {% endblock %}
-
-
+{% block title %}房源列表{% endblock %}
 {% block content %}
     <div class="leftTop">
-        <div id="openNav" onclick="openNav()">&#9776; OPEN</div>
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">&#9776; OPEN</a>
     </div>
     {#  房源过滤  #}
     <div class="filter">

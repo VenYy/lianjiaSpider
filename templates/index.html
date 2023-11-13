@@ -1,29 +1,54 @@
-{% extends 'base.html' %}
-
-{% block title %}首页{% endblock %}
-{% block additional_files %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/echarts.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+{% extends 'base.html' %} {% block title %}首页{% endblock %} {% block
+additional_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/css/bootstrap.css') }}">
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
+    <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='js/index.js') }}"
+    ></script>
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/echarts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/showChart.js') }}"></script>
     <script type="text/javascript">
         var houseData = JSON.parse('{{ house_data|safe }}')     // 房源数量
         var avgPriceData = JSON.parse('{{ avg_price_data|safe }}')   // 平均租金
     </script>
-{% endblock %}
-{% block content %}
+    <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='plugins/jquery.min.js') }}"
+    ></script>
+
+
+{% endblock %} {% block content %}
     <div class="leftTop">
-        <div id="openNav" onclick="openNav()">&#9776; OPEN</div>
+        <a
+                class="btn btn-primary"
+                data-bs-toggle="offcanvas"
+                href="#offcanvasExample"
+                role="button"
+                aria-controls="offcanvasExample"
+        >&#9776;&nbsp;OPEN</a
+        >
     </div>
     <div class="page_title"><p>租房网站数据可视化平台</p></div>
     <div class="basic_info">
-        <div class="info-district"><p class="info_count">{{ district_count }}</p>
-            <p>城市数量</p></div>
-        <div class="info-village"><p class="info_count">{{ village_count }}</p>
-            <p>小区数量</p></div>
-        <div class="info-house"><p class="info_count">{{ houses_count }}</p>
-            <p>现有房源</p></div>
+        <div class="info-district">
+            <p class="info_count">{{ district_count }}</p>
+            <p>城市数量</p>
+        </div>
+        <div class="info-village">
+            <p class="info_count">{{ village_count }}</p>
+            <p>小区数量</p>
+        </div>
+        <div class="info-house">
+            <p class="info_count">{{ houses_count }}</p>
+            <p>现有房源</p>
+        </div>
     </div>
     <div id="main"></div>
 
@@ -34,4 +59,3 @@
     <div class="chart" id="chart5"></div>
 
 {% endblock %}
-
