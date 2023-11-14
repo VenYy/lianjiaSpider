@@ -18,11 +18,18 @@
     margin: 0;
 }
 
-.offcanvas li {
-    margin-bottom: 10px;
-    display: block;
-}
 
+.offcanvas li {
+    margin-bottom: 20px;
+    display: block;
+    margin-left: 50px;
+}
+.offcanvas li img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    vertical-align: top;
+}
 
 .leftTop {
     position: absolute;

@@ -41,9 +41,9 @@
         <div class="offcanvas-body">
             <div class="dropdown mt-3">
                 <ul>
-                    <li id="index"><a href="{{ url_for('index') }}">首页</a></li>
-                    <li id="house_list"><a href="{{ url_for('list_page.house_list') }}">房源列表</a></li>
-                    <li id="detail"><a href="{{ url_for('detail.house_detail') }}">小区详情</a></li>
+                    <li id="index"><img src="{{ url_for('static', filename='image/首页.png') }}" alt=""><a href="{{ url_for('index') }}">首页</a></li>
+                    <li id="house_list"><img src="{{ url_for('static', filename='image/房源列表.png') }}" alt=""><a href="{{ url_for('list_page.house_list') }}">房源列表</a></li>
+                    <li id="detail"><img src="{{ url_for('static', filename='image/小区详情.png') }}" alt=""><a href="{{ url_for('detail.house_detail') }}">小区详情</a></li>
                 </ul>
             </div>
         </div>
