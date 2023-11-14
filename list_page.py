@@ -102,15 +102,16 @@ def house_list():
 def search_suggest():
     """基于用户输入的内容进行相似搜索"""
     user_input = request.form.get("search_input")
-    suggest_list = random.choices(Houses.query.filter(or_(
-        (Houses.title.like(f"%{user_input}%")),
-        (Houses.rooms.like(f"%{user_input}%")),
-        (Houses.city.like(f"%{user_input}%")),
-        (Houses.district.like(f"%{user_input}%"))
-    )).all(), k=6)
-
-    print(suggest_list)
-    return jsonify({"status": 1, "data": modify_data_type(suggest_list)})
+    suggest_list = Houses.query.distinct().filter(
+        or_(
+            (Houses.title.like(f"%{user_input}%")),
+            (Houses.rooms.like(f"%{user_input}%")),
+            (Houses.city.like(f"%{user_input}%")),
+            (Houses.district.like(f"%{user_input}%"))
+        )).all()
+    if len(suggest_list) == 0:
+        return jsonify({"status": 0})
+    return jsonify({"status": 1, "data": modify_data_type(random.choices(suggest_list, k=6))})
 
 
 # 过滤器, 修改模板中的城市名称

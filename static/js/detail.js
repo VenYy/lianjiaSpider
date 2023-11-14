@@ -166,7 +166,7 @@ function getVillageInfo() {
             $("#min_price").text("￥" + response.data.min_price)
             $("#max_price").text("￥" + response.data.max_price)
 
-            const min_price_house = JSON.parse(response.data.min_price_house)
+            const min_price_house = JSON.parse(response.data.min_price_house);
             const max_price_house = JSON.parse(response.data.max_price_house);
             const max_price_house_url = "/house_list?param=" + encodeURIComponent(max_price_house.title);
             const min_price_house_url = "/house_list?param=" + encodeURIComponent(min_price_house.title);
@@ -202,10 +202,8 @@ $(document).ready(function () {
         if (selectedCity !== "") {
             district_select.disabled = false;
         } else {
-            // $("#district_select").val(null).selectpicker("refresh")
             district_select.disabled = true
             $("#village_select").val(null)
-            // $("#village_select").prop('disabled', true).selectpicker("refresh")
         }
 
         if (district_select.disabled) {
@@ -216,7 +214,6 @@ $(document).ready(function () {
 
         // 清除选择框内容
         district_select.innerHTML = "<option value=''>区县</option>";
-        // $('#district_select').selectpicker('refresh');
 
 
         $.ajax({
@@ -230,11 +227,9 @@ $(document).ready(function () {
                     str += '<option value="' + response[i] + '">' + response[i] + '</option>'
                 }
                 district_select.innerHTML = str
-                // $('#district_select').selectpicker('refresh');
             },
             error: function () {
                 district_select.innerHTML = str
-                // $('#district_select').selectpicker('refresh');
             }
         });
     });
@@ -255,7 +250,6 @@ $(document).ready(function () {
         let str = ""
         if (selectedDistrict === "") {
             village_select.innerHTML = '小区'
-            // $("#village_select").selectpicker("refresh")
         }
 
         $.ajax({
@@ -269,11 +263,9 @@ $(document).ready(function () {
                     str += '<option value="' + response[i] + '">' + response[i] + '</option>'
                 }
                 village_select.innerHTML = str
-                // $("#village_select").selectpicker("refresh")
             },
             error: function () {
                 village_select.innerHTML = str
-                // $("#village_select").selectpicker("refresh")
             }
         });
     });

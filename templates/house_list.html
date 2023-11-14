@@ -58,18 +58,23 @@
                                 const house_list = data.data
                                 for (let i = 0; i < house_list.length; i++) {
                                     text += `<li class="suggest_item" title="${house_list[i].village_name}">
-                                <span class="item_village">${house_list[i].village_name}</span>
-                                <span class="item_addr">${house_list[i].city}&nbsp;${house_list[i].district}</span>
-                                <span class="item_price">￥${house_list[i].price}</span>
-                             </li>`
+                                                <span class="item_village">${house_list[i].village_name}</span>
+                                                <span class="item_addr">${house_list[i].city}&nbsp;${house_list[i].district}</span>
+                                                <span class="item_price">￥${house_list[i].price}</span>
+                                             </li>`
                                 }
                                 if (keyword.length === 0) {
                                     text = ""
                                 }
-                                $("#suggest_list").display = "block"
                                 suggest_wrap.innerHTML = text
                                 click_to_input()
+                            } else if (data.status === 0) {
+                                text = `<li class="suggest_item">暂无相关房源</li>`
+                                suggest_wrap.innerHTML = text
                             }
+                        },
+                        error: function (e) {
+                            console.log(e)
                         }
                     })
                 }
