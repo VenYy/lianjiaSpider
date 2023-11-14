@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
 {% block additional_files %}
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/house_list.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/house_list.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
 {% endblock %}
 {% block title %}房源列表{% endblock %}
 {% block content %}
     <div class="leftTop">
-        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">&#9776; OPEN</a>
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+           aria-controls="offcanvasExample">&#9776; OPEN</a>
     </div>
     {#  房源过滤  #}
     <div class="filter">
         <div class="filter_wrap">
             <div class="search_filter">
-                <div class="search_wrap">
+                <div id="search_wrap" class="search_wrap">
                     <input type="text" id="filter_by_input" placeholder="输入区域或小区名称开始找房">
                     <button onclick="filter_content()"></button>
                 </div>
+                <div id="suggest_wrap"></div>
             </div>
             <script type="text/javascript">
                 function filter_content() {
-                    // 用于处理用户输入的内容
+                    // 用于搜索用户输入的内容
                     var base_url = "{{ request.base_url }}"
                     var request_url = "{{ url_for('list_page.house_list') }}"
                     var user_input = document.getElementById("filter_by_input").value
@@ -39,6 +42,37 @@
                         })
                 }
 
+                function search_suggest(keyword) {
+                    // 基于用户输入内容向用户推荐相关房源
+                    $.ajax({
+                        url: "{{ url_for('list_page.search_suggest') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            "search_input": keyword
+                        },
+                        success: function (data) {
+                            const suggest_wrap = document.getElementById("suggest_wrap")
+                            let text = ""
+                            if (data.status === 1) {
+                                const house_list = data.data
+                                for (let i = 0; i < house_list.length; i++) {
+                                    text += `<li class="suggest_item" title="${house_list[i].village_name}">
+                                <span class="item_village">${house_list[i].village_name}</span>
+                                <span class="item_addr">${house_list[i].city}&nbsp;${house_list[i].district}</span>
+                                <span class="item_price">￥${house_list[i].price}</span>
+                             </li>`
+                                }
+                                if (keyword.length === 0) {
+                                    text = ""
+                                }
+                                $("#suggest_list").display = "block"
+                                suggest_wrap.innerHTML = text
+                                click_to_input()
+                            }
+                        }
+                    })
+                }
             </script>
             <ul class="filer_ul by_city">
                 <li class="filter_type">按区域</li>

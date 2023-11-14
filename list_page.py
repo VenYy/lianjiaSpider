@@ -1,11 +1,14 @@
+import json
 import math
 import re
+import random
 
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
-from sqlalchemy import not_
+from sqlalchemy import not_, func, or_
 
 from db.model import Houses, City, District
 from db.settings import db
+from db.modify_data_type import modify_data_type
 
 list_page = Blueprint("list_page", __name__)
 
@@ -93,6 +96,21 @@ def house_list():
                            city_districts=city_districts,
                            total_count=total_count,
                            total_page_num=total_page_num)
+
+
+@list_page.route("/house/suggest", methods=["POST"])
+def search_suggest():
+    """基于用户输入的内容进行相似搜索"""
+    user_input = request.form.get("search_input")
+    suggest_list = random.choices(Houses.query.filter(or_(
+        (Houses.title.like(f"%{user_input}%")),
+        (Houses.rooms.like(f"%{user_input}%")),
+        (Houses.city.like(f"%{user_input}%")),
+        (Houses.district.like(f"%{user_input}%"))
+    )).all(), k=6)
+
+    print(suggest_list)
+    return jsonify({"status": 1, "data": modify_data_type(suggest_list)})
 
 
 # 过滤器, 修改模板中的城市名称

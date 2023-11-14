@@ -138,7 +138,7 @@ class Houses(db.Model):
             "city": self.city,
             "district": self.district
         }
-        return json.dumps(house_dict)
+        return str(house_dict)
 
 
 class City(db.Model):
