@@ -5,6 +5,7 @@
 
 .offcanvas-start {
     width: 300px!important;
+    user-select: none;
 }
 
 .offcanvas ul, .offcanvas li, .offcanvas a {

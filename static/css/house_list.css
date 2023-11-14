@@ -90,6 +90,7 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 }
 #suggest_wrap .item_addr {
     width: 200px;
