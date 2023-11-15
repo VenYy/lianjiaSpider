@@ -82,55 +82,20 @@
             <ul class="filer_ul by_city">
                 <li class="filter_type">按区域</li>
                 <br>
-                {#                <li{% if not request.args.get('city') and not request.args.get('district') %} class="strong"{% endif %}>#}
-                {#                    <a#}
-                {#                            href="{{ url_for('list_page.house_list',#}
-                {#                        param=param,#}
-                {#                        rent_type=rent_type,#}
-                {#                        rooms=rooms,#}
-                {#                        direction=direction,#}
-                {#                        price=price) }}">不限</a></li>#}
                 <li {% if not request.args.get('city') and not request.args.get('district') %}
                     class="strong"{% endif %}>
                     <a href="/house_list?{{ query_params|update_param('city')|update_param('district')|urlencode() }}">不限</a>
                 </li>
                 {% for city in city_districts.keys() %}
-                    {#                    <li{% if request.args.get('city') == city %} class="strong"{% endif %}><a#}
-                    {#                            href="{{ url_for('list_page.house_list',#}
-                    {#                        param=param,#}
-                    {#                        city=city,#}
-                    {#                        district=district,#}
-                    {#                        rent_type=rent_type,#}
-                    {#                        rooms=rooms,#}
-                    {#                        direction=direction,#}
-                    {#                        price=price) }}">{{ city }}</a></li>#}
                     <li{% if request.args.get('city') == city %} class="strong" {% endif %}><a
                             href="/house_list?{{ query_params|update_param('city', city)|urlencode() }}">{{ city }}</a>
                     </li>
                 {% endfor %}
             </ul>
             <ul class="filer_ul by_district">
-                {#                <li{% if not request.args.get('district') %} class="strong"{% endif %}><a#}
-                {#                        href="{{ url_for('list_page.house_list',#}
-                {#                    param=param,#}
-                {#                    city=city,#}
-                {#                    rent_type=rent_type,#}
-                {#                    rooms=rooms,#}
-                {#                    direction=direction,#}
-                {#                    price=price) }}">不限</a></li>#}
                 <li {% if not request.args.get('district') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('district')|urlencode() }}">不限</a></li>
                 {% for district in city_districts[request.args.get('city')] %}
-                    {#                    <li{% if request.args.get('district') == district %} class="strong"{% endif %}><a#}
-                    {#                            href="{{ url_for('list_page.house_list',#}
-                    {#                        param=param,#}
-                    {#                        city=city,#}
-                    {#                        district=district,#}
-                    {#                        rent_type=rent_type,#}
-                    {#                        rooms=rooms,#}
-                    {#                        direction=direction,#}
-                    {#                        price=price) }}">{{ district }}</a>#}
-                    {#                    </li>#}
                     <li{% if request.args.get('district') == district %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('district', district)|urlencode() }}">{{ district }}</a>
                     </li>
@@ -139,27 +104,9 @@
             <ul class="filer_ul by_rent_type">
                 <li class="filter_type">按方式</li>
                 <br>
-                {#                <li{% if not request.args.get('rent_type') %} class="strong"{% endif %}><a#}
-                {#                        href="{{ url_for('list_page.house_list',#}
-                {#                    param=param,#}
-                {#                    city=city,#}
-                {#                    district=district,#}
-                {#                    rooms=rooms,#}
-                {#                    direction=direction,#}
-                {#                    price=price) }}">不限</a></li>#}
                 <li {% if not request.args.get('rent_type') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('rent_type')|urlencode() }}">不限</a></li>
                 {% for rent_type in ["整租", "合租"] %}
-                    {#                    <li{% if request.args.get('rent_type') == rent_type %} class="strong"{% endif %}><a#}
-                    {#                            href="{{ url_for('list_page.house_list',#}
-                    {#                        param=param,#}
-                    {#                        city=city,#}
-                    {#                        district=district,#}
-                    {#                        rent_type=rent_type,#}
-                    {#                        rooms=rooms,#}
-                    {#                        direction=direction,#}
-                    {#                        price=price) }}">{{ rent_type }}</a>#}
-                    {#                    </li>#}
                     <li{% if request.args.get('rent_type') == rent_type %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('rent_type', rent_type)|urlencode() }}">{{ rent_type }}</a>
                     </li>
@@ -168,27 +115,9 @@
             <ul class="filer_ul by_rooms">
                 <li class="filter_type">按户型</li>
                 <br>
-                {#                <li{% if not request.args.get('rooms') %} class="strong"{% endif %}><a#}
-                {#                        href="{{ url_for('list_page.house_list',#}
-                {#                    param=param,#}
-                {#                    city=city,#}
-                {#                    district=district,#}
-                {#                    rent_type=rent_type,#}
-                {#                    direction=direction,#}
-                {#                    price=price) }}">不限</a></li>#}
                 <li {% if not request.args.get('rooms') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('rooms')|urlencode() }}">不限</a></li>
                 {% for rooms in ["1室", "2室", "3室", "4室", "5室以上"] %}
-{#                    <li{% if request.args.get('rooms') == rooms %} class="strong"{% endif %}><a#}
-{#                            href="{{ url_for('list_page.house_list',#}
-{#                        param=param,#}
-{#                        city=city,#}
-{#                        district=district,#}
-{#                        rent_type=rent_type,#}
-{#                        rooms=rooms,#}
-{#                        direction=direction,#}
-{#                        price=price) }}">{{ rooms }}</a>#}
-{#                    </li>#}
                     <li{% if request.args.get('rooms') == rooms %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('rooms', rooms)|urlencode() }}">{{ rooms }}</a>
                     </li>
@@ -197,27 +126,9 @@
             <ul class="filer_ul by_direction">
                 <li class="filter_type">按朝向</li>
                 <br>
-{#                <li{% if not request.args.get('direction') %} class="strong"{% endif %}><a#}
-{#                        href="{{ url_for('list_page.house_list',#}
-{#                    param=param,#}
-{#                    city=city,#}
-{#                    district=district,#}
-{#                    rent_type=rent_type,#}
-{#                    rooms=rooms,#}
-{#                    price=price) }}">不限</a></li>#}
                 <li {% if not request.args.get('direction') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('direction')|urlencode() }}">不限</a></li>
                 {% for direction in ["东", "西", "南", "北", "南/北", "其他"] %}
-{#                    <li{% if request.args.get('direction') == direction %} class="strong"{% endif %}><a#}
-{#                            href="{{ url_for('list_page.house_list',#}
-{#                        param=param,#}
-{#                        city=city,#}
-{#                        district=district,#}
-{#                        rent_type=rent_type,#}
-{#                        rooms=rooms,#}
-{#                        direction=direction,#}
-{#                        price=price) }}">{{ direction }}</a>#}
-{#                    </li>#}
                     <li{% if request.args.get('direction') == direction %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('direction', direction)|urlencode() }}">{{ direction }}</a>
                     </li>
@@ -226,27 +137,9 @@
             <ul class="filer_ul by_price">
                 <li class="filter_type">按价格</li>
                 <br>
-{#                <li{% if not request.args.get("price") %}#}
-{#                    class="strong"{% endif %}>#}
-{#                    <a href="{{ url_for('list_page.house_list',#}
-{#                    param=param,#}
-{#                    city=city,#}
-{#                    district=district,#}
-{#                    rent_type=rent_type,#}
-{#                    rooms=rooms,#}
-{#                    direction=direction) }}">不限</a>#}
-{#                </li>#}
                 <li {% if not request.args.get('price') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('price')|urlencode() }}">不限</a></li>
                 {% for price in ["0-1000元", "1000-2000元", "2000-3000元", "3000-4000元", "4000-5000元", "5000元以上"] %}
-{#                    <li{% if request.args.get('price') == price %} class="strong"{% endif %}><a href="{{ url_for('list_page.house_list',#}
-{#                    param=param,#}
-{#                    city=city,#}
-{#                    district=district,#}
-{#                    rent_type=rent_type,#}
-{#                    rooms=rooms,#}
-{#                    direction=direction,#}
-{#                    price=price) }}">{{ price }}</a></li>#}
                     <li{% if request.args.get('price') == price %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('price', price)|urlencode() }}">{{ price }}</a>
                     </li>
@@ -303,18 +196,8 @@
     <div class="pagination">
         {% if pagination.has_prev %}
             <span>
-            <a class='page-number'
-               href="{{ url_for('list_page.house_list',
-                    param=param,
-                    city=city,
-                    district=district,
-                    rent_type=rent_type,
-                    rooms=rooms,
-                    direction=direction,
-                    price=price,
-                    page=pagination.prev_num) }}">
-                {{ '上一页' }}
-            </a>
+            <a href="/house_list?{{ query_params|update_param('page', pagination.prev_num)|urlencode() }}"
+               class="page-number">{{ '上一页' }}</a>
         </span>
         {% endif %}
 
@@ -322,18 +205,8 @@
             {% if page %}
                 {% if pagination.page != page %}
                     <span>
-                    <a class='page-number'
-                       href="{{ url_for('list_page.house_list',
-                        param=param,
-                        city=city,
-                        district=district,
-                        rent_type=rent_type,
-                        rooms=rooms,
-                        direction=direction,
-                        price=price,
-                        page=page) }}">
-                        {{ page }}
-                    </a>
+                    <a href="/house_list?{{ query_params|update_param('page', page)|urlencode() }}"
+                       class="page-number">{{ page }}</a>
                 </span>
                 {% else %}
                     <a href="" class="current-page-number">{{ page }}</a>
@@ -345,18 +218,8 @@
 
         {% if pagination.has_next %}
             <span>
-            <a class='page-number'
-               href="{{ url_for('list_page.house_list',
-                    param=param,
-                    city=city,
-                    district=district,
-                    rent_type=rent_type,
-                    rooms=rooms,
-                    direction=direction,
-                    price=price,
-                    page=pagination.next_num) }}">
-                {{ '下一页' }}
-            </a>
+            <a href="/house_list?{{ query_params|update_param('page', pagination.next_num)|urlencode() }}"
+               class="page-number">{{ '下一页' }}</a>
         </span>
         {% endif %}
     </div>
