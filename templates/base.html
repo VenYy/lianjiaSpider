@@ -14,9 +14,9 @@
             type="image/png"
             href="{{ url_for('static', filename='image/favicon.png') }}"
     />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <title>{% block title %}{% endblock %}</title>
     {% block additional_files %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
 <body>
 {% block navbar %}

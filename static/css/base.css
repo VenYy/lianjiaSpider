@@ -35,8 +35,10 @@
 .leftTop {
     position: absolute;
 }
-
-
+.btn {
+    border-radius: 0 0 5px 0;
+    box-shadow: 1px 1px 3px #0f0f0f;
+}
 /*#openNav {*/
 /*    float: left;*/
 /*    font-size: 20px;*/

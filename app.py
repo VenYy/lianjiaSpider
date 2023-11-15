@@ -1,7 +1,6 @@
 import json
-import math
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from sqlalchemy import func
 
 from charts import charts
@@ -10,7 +9,7 @@ from detail import detail
 
 from db.settings import Config, db
 from lib.geo.mapCity import map_city
-from db.model import Houses, City, District, Village
+from db.model import Houses, District, Village
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -53,4 +52,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

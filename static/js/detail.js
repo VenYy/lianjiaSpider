@@ -65,7 +65,7 @@ function show_scatter(title, data) {
             formatter: function (param) {
                 const value = param.value
                 return `面积: <span style="font-size: 16px; color: #5c7bd9; font-weight:bold;">${value[0]}</span>㎡</br>
-                        租金: <span style="font-size: 16px; color: #5c7bd9; font-weight:bold;">${value[1]}</span>元`
+                        租金: <span style="font-size: 16px; color: #5c7bd9; font-weight:bold;">${value[1]}</span>元/月`
             }
         }
     }
@@ -123,7 +123,7 @@ function show_bar(title, x_data, y_data) {
                 return `<span style="color: #0f0f0f; font-weight:bold; font-size: 16px">${param.name}</span>
                         </br>
                         <span style="font-size: 14px">${param.seriesName}:</span>
-                        <span style="font-size: 14px; color: #5c7bd9; font-weight:bold;">${param.value.toFixed(2)}</span>元`
+                        <span style="font-size: 14px; color: #5c7bd9; font-weight:bold;">${param.value.toFixed(2)}</span>元/月`
             }
         }
     }
