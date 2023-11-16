@@ -92,20 +92,20 @@ function show_bar(title, x_data, y_data) {
                 name: "平均租金",
                 type: "bar",
                 data: y_data,
-                barMaxWidth: 20,
+                barMaxWidth: 30,
                 itemStyle: {
                     borderRadius: [5, 5, 0, 0],
                     // 渐变色
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                         {offset: 0, color: '#83bff6'},
                         {offset: 0.5, color: '#188df0'},
-                        {offset: 1, color: '#188df0'}
+                        {offset: 1, color: '#18f080'}
                     ])
                 },
                 emphasis: {
                     itemStyle: {
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            {offset: 0, color: '#2378f7'},
+                            {offset: 1, color: '#18f080'},
                             {offset: 0.7, color: '#2378f7'},
                             {offset: 1, color: '#83bff6'}
                         ])

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-// 点击返回顶部按钮时，滚动到页面最顶部
+    // 点击返回顶部按钮时，滚动到页面最顶部
     document.getElementById('back_to_top').addEventListener('click', function () {
         // 使用平滑滚动效果，滚动到页面顶部
         window.scrollTo({
@@ -22,8 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 })
-
-
 
 
 // 点击搜索候选区将其填入输入框

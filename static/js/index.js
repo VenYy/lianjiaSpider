@@ -13,7 +13,7 @@ function initEcharts(geoJson, name, chart, alladcode, houseData, avgPriceData) {
                 <br>
                 <span style="font-weight:bold; font-size:14px;">${params.seriesName}:</span>&nbsp;<span style="font-weight:bold; font-size:14px; color: #53c1ed">${params.data.value}</span>
                 <br>
-                <span style="font-weight:bold; font-size:14px;">平均租金:</span>&nbsp;<span style="font-weight:bold; font-size:14px; color: #53c1ed">${params.value.toFixed(2)}</span>`
+                <span style="font-weight:bold; font-size:14px;">平均租金:</span>&nbsp;<span style="font-weight:bold; font-size:14px; color: #53c1ed">${params.value.toFixed(2)}</span>元/月`
             }
         },
         visualMap: {
@@ -33,12 +33,6 @@ function initEcharts(geoJson, name, chart, alladcode, houseData, avgPriceData) {
                 label: {
                     show: true
                 },
-                tooltip: {
-                    // formatter: params => {
-                    //     console.log("houseData: ", params)
-                    //     return `${params.seriesName}: ${params.data.value}`
-                    // }
-                }
             },
             {
                 name: "平均租金",
@@ -46,12 +40,6 @@ function initEcharts(geoJson, name, chart, alladcode, houseData, avgPriceData) {
                 map: name,
                 data: avgPriceData,
                 label: { show: true },
-                tooltip: {
-                    // formatter: params => {
-                    //     console.log("avgPriceData: ", params)
-                    //     return `平均租金: ${params.value}`
-                    // }
-                }
             }],
     }
     chart.setOption(option)

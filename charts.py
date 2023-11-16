@@ -46,7 +46,10 @@ def gen_bar(title, subtitle, x_data, y_data, series_name):
                                                                                 opacity=0.5))
         ),
         tooltip_opts=opts.TooltipOpts(
-            formatter="{b}</br>{a}: {c}"
+            formatter="<span style='color: #0f0f0f; font-size: 16px; font-weight: bold;'>{b}</span>"
+                      "</br>"
+                      "<span style='color: #737373; font-size: 14px; font-weight: bold;'>{a}: </span>"
+                      "<span style='color: #5ec4ed; font-size: 16px; font-weight: bold;'>{c}</span>"
         ),
         graphic_opts=[
             opts.GraphicImage(
@@ -84,7 +87,12 @@ def gen_pie(title, subtitle, data, series_name):
             pos_top="3px",
             title_textstyle_opts=opts.TextStyleOpts(font_weight="bold", font_size=18, color="white")
         ),
-        tooltip_opts=opts.TooltipOpts(formatter="{b}</br>{a}: {c}"),
+        tooltip_opts=opts.TooltipOpts(
+            formatter="<span style='color: #0f0f0f; font-size: 16px; font-weight: bold;'>{b}</span>"
+                      "</br>"
+                      "<span style='color: #737373; font-size: 14px; font-weight: bold;'>{a}: </span>"
+                      "<span style='color: #5ec4ed; font-size: 16px; font-weight: bold;'>{c}</span>"
+        ),
         legend_opts=opts.LegendOpts(is_show=False),
         graphic_opts=[
             opts.GraphicImage(
@@ -174,12 +182,11 @@ def chart4():
         subtitle="直观显示各城市租房的价格对比",
         x_data=[i[0] for i in data],
         y_data=[i[1] for i in data],
-        series_name="平均租金"
+        series_name="平均租金(元/月)"
     )
     grid = Grid()
     grid.add(bar, grid_opts=opts.GridOpts(pos_bottom="10%", pos_top="30%", pos_left="15%"))
     return grid.dump_options_with_quotes()
-
 
 # @charts.route("/charts/chart5")
 # def chart5():

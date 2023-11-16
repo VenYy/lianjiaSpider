@@ -1,10 +1,6 @@
-import os
-from datetime import datetime
 from queue import Queue
 from threading import Thread
-import sqlalchemy
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import QueuePool
+
 
 from app import app
 from db.model import Houses, db

@@ -8,7 +8,6 @@ from db.model import Houses, City, District
 from db.settings import db
 from db.modify_data_type import modify_data_type
 
-from urllib.parse import urlencode
 
 list_page = Blueprint("list_page", __name__)
 
@@ -38,8 +37,10 @@ def house_list():
 
     # print(city_districts)
 
+    # 创建查询对象
     query = Houses.query
 
+    # 按用户输入筛选
     if user_input:
         query = query.filter(
             (Houses.city.like(f"%{user_input}%")) |
@@ -48,27 +49,30 @@ def house_list():
             (Houses.title.like(f"%{user_input}%"))
         )
 
+    # 按城市名称筛选
     if city:
         query = query.filter(Houses.city == city)
+    # 按区县名称筛选
     if district:
         query = query.filter(Houses.district == district)
+    # 按出租类型筛选
     if rent_type:
         query = query.filter(Houses.rent_type == rent_type)
-
+    # 按户型筛选
     if rooms == "5室以上":
         # 使用正则表达式提取数字并比较
         query = query.filter(Houses.rooms.op("REGEXP")('[5-9]室|[1-9][0-9]室'))
         print(query)
     elif rooms:
         query = query.filter(Houses.rooms.like(f"%{rooms}%"))
-
+    # 按朝向筛选
     if direction == "其他":
         query = query.filter(not_(Houses.direction.in_(["东", "西", "南", "北", "南/北"])))
     elif direction:
         query = query.filter(Houses.direction == direction)
-
+    # 按价格区间筛选
     if price_range:
-        if price_range == "0-1000元":
+        if price_range == "1000元以下":
             query = query.filter(Houses.price.between(0, 1000))
         elif price_range == "1000-2000元":
             query = query.filter(Houses.price.between(1000, 2000))

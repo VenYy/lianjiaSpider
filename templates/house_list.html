@@ -11,7 +11,7 @@
 {% block content %}
     <div class="leftTop">
         <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-           aria-controls="offcanvasExample">&#9776; OPEN</a>
+           aria-controls="offcanvasExample">&#9776;&nbsp;OPEN</a>
     </div>
     {#  房源过滤  #}
     <div class="filter">
@@ -24,6 +24,13 @@
                 <div id="suggest_wrap"></div>
             </div>
             <script type="text/javascript">
+                // 回车执行filter_content函数
+                document.onkeydown = function (e) {
+                    if (e.keyCode === 13) {
+                        filter_content()
+                    }
+                }
+
                 function filter_content() {
                     // 用于搜索用户输入的内容
                     var base_url = "{{ request.base_url }}"
@@ -139,7 +146,7 @@
                 <br>
                 <li {% if not request.args.get('price') %} class="strong"{% endif %}><a
                         href="/house_list?{{ query_params|update_param('price')|urlencode() }}">不限</a></li>
-                {% for price in ["0-1000元", "1000-2000元", "2000-3000元", "3000-4000元", "4000-5000元", "5000元以上"] %}
+                {% for price in ["1000元以下", "1000-2000元", "2000-3000元", "3000-4000元", "4000-5000元", "5000元以上"] %}
                     <li{% if request.args.get('price') == price %} class="strong"{% endif %}><a
                             href="/house_list?{{ query_params|update_param('price', price)|urlencode() }}">{{ price }}</a>
                     </li>
