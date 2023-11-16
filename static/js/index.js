@@ -1,5 +1,7 @@
+import apiKey from "./config";
+
 let publicUrl = "https://geo.datav.aliyun.com/areas_v3/bound/"
-let key = "c26b3dd48638924e21a2eb315ef11aa9"
+
 
 function initEcharts(geoJson, name, chart, alladcode, houseData, avgPriceData) {
     // geoJson: 城市地理数据
@@ -118,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function getWeather(adcode) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `https://restapi.amap.com/v3/weather/weatherInfo?city=${adcode}&key=${key}`,
+            url: `https://restapi.amap.com/v3/weather/weatherInfo?city=${adcode}&key=${apiKey}`,
             type: "get",
             dataType: "jsonp",
             jsonp: "callback",
@@ -140,7 +142,7 @@ function getWeather(adcode) {
 function getCityNameById() {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `https://restapi.amap.com/v3/ip?key=${key}`,
+            url: `https://restapi.amap.com/v3/ip?key=${apiKey}`,
             type: "get",
             dataType: "jsonp",
             jsonp: "callback",
@@ -162,7 +164,7 @@ function getCityNameById() {
 function geocoding(cityName) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `https://restapi.amap.com/v3/geocode/geo?address=${cityName}&key=${key}`,
+            url: `https://restapi.amap.com/v3/geocode/geo?address=${cityName}&key=${apiKey}`,
             type: "get",
             dataType: "jsonp",
             jsonp: "callback",
