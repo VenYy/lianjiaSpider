@@ -100,6 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             $("#temperature").text(temperature + "℃")
                             $("#weather .weatherkey").text(weather)
                             $("#weather img").attr('src', getIcon(weather))
+
+                            $("#windpower").text("风速: " + windPower + "级")
+                            $("#winddirection").text("风向: " + windDirection)
+                            $("#humidity").text("湿度: " + humidity + "%")
+
                         })
                 })
         })
