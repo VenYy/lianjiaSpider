@@ -29,9 +29,9 @@ def gen_bar(title, subtitle, x_data, y_data, series_name):
             title=title,
             subtitle=subtitle,
             pos_left="16px",
-            pos_top="10px",
+            pos_top="8px",
             padding=[0, 0, 10, 0],
-            title_textstyle_opts=opts.TextStyleOpts(font_weight="bold", font_size=18, color="#e9eaec"),
+            title_textstyle_opts=opts.TextStyleOpts(font_weight="bold", font_size=18, color="#fffd00"),
             subtitle_textstyle_opts=opts.TextStyleOpts(font_size=13, color="#96afd3")
         ),
         legend_opts=opts.LegendOpts(is_show=False),
@@ -85,7 +85,7 @@ def gen_pie(title, subtitle, data, series_name):
             subtitle_textstyle_opts=opts.TextStyleOpts(font_size=13, color="#96afd3"),
             pos_left="15px",
             pos_top="3px",
-            title_textstyle_opts=opts.TextStyleOpts(font_weight="bold", font_size=18, color="white")
+            title_textstyle_opts=opts.TextStyleOpts(font_weight="bold", font_size=18, color="#fffd00")
         ),
         tooltip_opts=opts.TooltipOpts(
             formatter="<span style='color: #0f0f0f; font-size: 16px; font-weight: bold;'>{b}</span>"

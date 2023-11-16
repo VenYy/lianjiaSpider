@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% block title %}首页{% endblock %} {% block
-additional_files %}
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block additional_files %}
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/css/bootstrap.css') }}">
     <script type="text/javascript"
             src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
@@ -24,7 +25,8 @@ additional_files %}
     ></script>
 
 
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
     <div class="leftTop">
         <a
                 class="btn btn-primary"
@@ -36,6 +38,13 @@ additional_files %}
         >
     </div>
     <div class="page_title"><p>租房网站数据可视化平台</p></div>
+    <div class="weatherInfo">
+        <div>
+            <p id="city"></p>
+            <p id="temperature"></p>
+            <p id="weather"><span class="weatherkey"></span><img src="" alt=""></p>
+        </div>
+    </div>
     <div class="basic_info">
         <div class="info-district">
             <p class="info_count">{{ district_count }}</p>
