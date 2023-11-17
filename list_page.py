@@ -59,17 +59,18 @@ def house_list():
     if rent_type:
         query = query.filter(Houses.rent_type == rent_type)
     # 按户型筛选
-    if rooms == "5室以上":
-        # 使用正则表达式提取数字并比较
-        query = query.filter(Houses.rooms.op("REGEXP")('[5-9]室|[1-9][0-9]室'))
-        print(query)
-    elif rooms:
-        query = query.filter(Houses.rooms.like(f"%{rooms}%"))
+    if rooms:
+        if rooms == "5室以上":
+            # 使用正则表达式提取数字并比较
+            query = query.filter(Houses.rooms.op("REGEXP")('[5-9]室|[1-9][0-9]室'))
+        else:
+            query = query.filter(Houses.rooms.like(f"%{rooms}%"))
     # 按朝向筛选
-    if direction == "其他":
-        query = query.filter(not_(Houses.direction.in_(["东", "西", "南", "北", "南/北"])))
-    elif direction:
-        query = query.filter(Houses.direction == direction)
+    if direction:
+        if direction == "其他":
+            query = query.filter(not_(Houses.direction.in_(["东", "西", "南", "北", "南/北"])))
+        else:
+            query = query.filter(Houses.direction == direction)
     # 按价格区间筛选
     if price_range:
         if price_range == "1000元以下":
@@ -143,11 +144,17 @@ def deal_facility(facilities):
 def update_param(query_params, key, value=None):
     """修改请求参数, 若不传入值则删除指定的参数"""
     new_query_params = query_params.copy()
+    try:
+        # 用户每次筛选房源条件, 页数需要重新开始
+        new_query_params.pop("page")
+    except KeyError:
+        pass
     if value:
         new_query_params[key] = value
     else:
         try:
             new_query_params.pop(key)
+            new_query_params.pop("page")
         except KeyError:
             pass
     return new_query_params

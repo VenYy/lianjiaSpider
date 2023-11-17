@@ -12,7 +12,18 @@
     <div class="leftTop">
         <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
            aria-controls="offcanvasExample">&#9776;&nbsp;OPEN</a>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="{{ url_for('static', filename='image/favicon.png') }}" class="rounded me-2" alt="...">
+                <strong class="me-auto">房源数据可视化系统</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                点击"OPEN"可打开侧边栏
+            </div>
+        </div>
     </div>
+
     {#  房源过滤  #}
     <div class="filter">
         <div class="filter_wrap">
@@ -63,12 +74,13 @@
                             let text = ""
                             if (data.status === 1) {
                                 const house_list = data.data
+
                                 for (let i = 0; i < house_list.length; i++) {
-                                    text += `<li class="suggest_item" title="${house_list[i].village_name}">
+                                    text += `<i class="suggest_item" title="${house_list[i].village_name}">
                                                 <span class="item_village">${house_list[i].village_name}</span>
                                                 <span class="item_addr">${house_list[i].city}&nbsp;${house_list[i].district}</span>
                                                 <span class="item_price">￥${house_list[i].price}</span>
-                                             </li>`
+                                             </i>`
                                 }
                                 if (keyword.length === 0) {
                                     text = ""
@@ -95,7 +107,7 @@
                 </li>
                 {% for city in city_districts.keys() %}
                     <li{% if request.args.get('city') == city %} class="strong" {% endif %}><a
-                            href="/house_list?{{ query_params|update_param('city', city)|urlencode() }}">{{ city }}</a>
+                            href="/house_list?{{ query_params|update_param('city', city)|update_param('district')|urlencode() }}">{{ city }}</a>
                     </li>
                 {% endfor %}
             </ul>

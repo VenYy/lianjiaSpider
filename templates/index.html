@@ -4,14 +4,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/css/bootstrap.css') }}">
     <script type="text/javascript"
             src="{{ url_for('static', filename='plugins/bootstrap-5.0.2-dist/js/bootstrap.js') }}"></script>
-    <script
-            type="text/javascript"
-            src="{{ url_for('static', filename='js/index.js') }}"
-    ></script>
-    <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/index.css') }}"
-    />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"/>
     <script type="text/javascript" src="{{ url_for('static', filename='plugins/echarts.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/showChart.js') }}"></script>
@@ -19,25 +14,27 @@
         var houseData = JSON.parse('{{ house_data|safe }}')     // 房源数量
         var avgPriceData = JSON.parse('{{ avg_price_data|safe }}')   // 平均租金
     </script>
-    <script
-            type="text/javascript"
-            src="{{ url_for('static', filename='plugins/jquery.min.js') }}"
-    ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/jquery.min.js') }}"></script>
 
 
 {% endblock %}
 {% block content %}
     <div class="leftTop">
-        <a
-                class="btn btn-primary"
-                data-bs-toggle="offcanvas"
-                href="#offcanvasExample"
-                role="button"
-                aria-controls="offcanvasExample"
-        >&#9776;&nbsp;OPEN</a
-        >
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+           aria-controls="offcanvasExample">&#9776;&nbsp;OPEN</a>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="{{ url_for('static', filename='image/favicon.png') }}" class="rounded me-2" alt="...">
+                <strong class="me-auto">房源数据可视化系统</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                点击"OPEN"可打开侧边栏
+            </div>
+        </div>
     </div>
     <div class="page_title"><p>租房网站数据可视化平台</p></div>
+    {#天气显示#}
     <div class="weatherInfo">
         <div>
             <p id="city"></p>
@@ -50,6 +47,7 @@
             <p id="humidity"></p>
         </div>
     </div>
+    {#基本信息#}
     <div class="basic_info">
         <div class="info-district">
             <p class="info_count">{{ district_count }}</p>
@@ -64,6 +62,7 @@
             <p>现有房源</p>
         </div>
     </div>
+    {#图表#}
     <div id="main"></div>
 
     <div class="chart" id="chart1"></div>

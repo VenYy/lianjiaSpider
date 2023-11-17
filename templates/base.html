@@ -17,6 +17,25 @@
     <title>{% block title %}{% endblock %}</title>
     {% block additional_files %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script type="text/javascript">
+        // 等待DOM加载完成
+        document.addEventListener('DOMContentLoaded', function () {
+            // 选择toast元素
+            var toastEl = document.querySelector('.toast');
+            // 创建Bootstrap的Toast实例
+            var toast = new bootstrap.Toast(toastEl);
+            // 在页面加载后一段时间显示Toast
+            setTimeout(function () {
+                // 显示Toast
+                toast.show();
+                // 设置一定的延迟后自动关闭Toast
+                setTimeout(function () {
+                    // 关闭Toast
+                    toast.hide();
+                }, 5000);
+            }, 500);
+        });
+    </script>
 </head>
 <body>
 {% block navbar %}
@@ -41,9 +60,12 @@
         <div class="offcanvas-body">
             <div class="dropdown mt-3">
                 <ul>
-                    <li id="index"><img src="{{ url_for('static', filename='image/首页.png') }}" alt=""><a href="{{ url_for('index') }}">首页</a></li>
-                    <li id="house_list"><img src="{{ url_for('static', filename='image/房源列表.png') }}" alt=""><a href="{{ url_for('list_page.house_list') }}">房源列表</a></li>
-                    <li id="detail"><img src="{{ url_for('static', filename='image/小区详情.png') }}" alt=""><a href="{{ url_for('detail.house_detail') }}">小区详情</a></li>
+                    <li id="index"><img src="{{ url_for('static', filename='image/首页.png') }}" alt=""><a
+                            href="{{ url_for('index') }}">首页</a></li>
+                    <li id="house_list"><img src="{{ url_for('static', filename='image/房源列表.png') }}" alt=""><a
+                            href="{{ url_for('list_page.house_list') }}">房源列表</a></li>
+                    <li id="detail"><img src="{{ url_for('static', filename='image/小区详情.png') }}" alt=""><a
+                            href="{{ url_for('detail.house_detail') }}">小区详情</a></li>
                 </ul>
             </div>
         </div>

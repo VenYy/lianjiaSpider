@@ -70,7 +70,7 @@ a {
     box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .1);
     border-radius: 5px;
 }
-#suggest_wrap li {
+#suggest_wrap i {
     display: block;
     height: 40px;
     line-height: 40px;
