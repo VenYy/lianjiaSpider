@@ -1,6 +1,7 @@
 import json
 
-from flask import Flask, render_template
+import requests
+from flask import Flask, render_template, jsonify
 from sqlalchemy import func
 
 from charts import charts
@@ -13,6 +14,8 @@ import os
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # 添加根路径到环境变量
 os.environ["ROOT_DIR"] = ROOT_DIR
+
+API_KEY = os.environ.get("API_KEY")
 
 
 from db.settings import Config, db
@@ -63,19 +66,26 @@ def index():
 @app.route("/api/city_name")
 def get_current_city():
     """当前ip的城市定位"""
-    pass
+    url = f"https://restapi.amap.com/v3/ip?key={API_KEY}"
+    resp = requests.get(url).json()
+    return resp
+
 
 @app.route("/api/adcode")
 def get_adcode():
     """当前城市所对应的adcode"""
-    pass
-
+    current_city = get_current_city()["city"]
+    url = f"https://restapi.amap.com/v3/geocode/geo?address={current_city}&key={API_KEY}"
+    resp = requests.get(url).json()
+    return resp
 
 @app.route("/api/weather")
 def get_weather():
     """当前城市的天气情况"""
-    pass
-
+    adcode = get_adcode()["geocodes"][0]["adcode"]
+    url = f"https://restapi.amap.com/v3/weather/weatherInfo?city={adcode}&key={API_KEY}"
+    resp = requests.get(url).json()
+    return resp
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)

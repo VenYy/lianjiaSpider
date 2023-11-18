@@ -1,6 +1,5 @@
 let publicUrl = "https://geo.datav.aliyun.com/areas_v3/bound/"
 
-
 function initEcharts(geoJson, name, chart, alladcode, houseData, avgPriceData) {
     // geoJson: 城市地理数据
     // name: 地图名称
@@ -78,22 +77,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         initChart()
 
-        const cityData = await getCityNameByIP()
-        console.log("基于IP定位的结果: ", cityData)
-        const currentCity = cityData.city
-
-        const geoData = await geocoding(currentCity)
-        console.log("城市编码信息: ", geoData)
-        const currentCityAdCode = geoData.geocodes[0].adcode
-
-        const weatherData = await getWeather(currentCityAdCode)
+        const weatherData = await getWeather()
         console.log("当前城市天气信息: ", weatherData)
+        const currentCity = weatherData.lives[0].city
         const temperature = weatherData.lives[0].temperature
         const weather = weatherData.lives[0].weather
         const windDirection = weatherData.lives[0].winddirection
         const windPower = weatherData.lives[0].windpower
         const humidity = weatherData.lives[0].humidity
-        const weatherDom = document.getElementById("weatherInfo")
 
         $("#city").text(currentCity)
         $("#temperature").text(temperature + "℃")
@@ -109,63 +100,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 })
 
-// 获取当前城市的天气信息
-function getWeather(adcode) {
+function getWeather() {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `https://restapi.amap.com/v3/weather/weatherInfo?city=${adcode}&key=${apiKey}`,
+            url: "/api/weather",
             type: "get",
-            dataType: "jsonp",
-            jsonp: "callback",
+            dataType: "json",
             success: function (data) {
                 if (data.status === "1") {
                     resolve(data)
                 } else {
                     reject(data.info)
-                }
-            }, error: function (xhr, status, error) {
-                reject(new Error(error))
-            }
-        })
-    })
-
-}
-
-// 使用高德地图api完成当前ip城市定位
-function getCityNameByIP() {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: `https://restapi.amap.com/v3/ip?key=${apiKey}`,
-            type: "get",
-            dataType: "jsonp",
-            jsonp: "callback",
-            success: function (data) {
-                if (data.status === "1") {
-                    resolve(data); // 异步操作成功，传递数据给resolve函数
-                } else {
-                    reject(data.info); // 异步操作失败，传递错误信息给reject函数
-                }
-            },
-            error: function (xhr, status, error) {
-                reject(new Error(error)); // 异步操作发生错误，传递错误信息给reject函数
-            },
-        });
-    });
-}
-
-// 获取城市编码adcode
-function geocoding(cityName) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: `https://restapi.amap.com/v3/geocode/geo?address=${cityName}&key=${apiKey}`,
-            type: "get",
-            dataType: "jsonp",
-            jsonp: "callback",
-            success: function (data) {
-                if (data.status === "1") {
-                    resolve(data); // 异步操作成功，传递数据给resolve函数
-                } else {
-                    reject(data.info); // 异步操作失败，传递错误信息给reject函数
                 }
             }
         })
