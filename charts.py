@@ -2,7 +2,7 @@ from flask import Blueprint
 from sqlalchemy import func, text
 
 from db.model import Houses
-from pyecharts.charts import Bar, Pie, Grid, Boxplot
+from pyecharts.charts import Bar, Pie, Grid
 from pyecharts import options as opts
 
 from db.settings import db

@@ -7,9 +7,19 @@ from charts import charts
 from list_page import list_page
 from detail import detail
 
+
+import os
+# 设置项目根路径
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+# 添加根路径到环境变量
+os.environ["ROOT_DIR"] = ROOT_DIR
+
+
 from db.settings import Config, db
 from lib.geo.mapCity import map_city
 from db.model import Houses, District, Village
+
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -49,6 +59,22 @@ def index():
                            district_count=district_count,
                            village_count=village_count,
                            houses_count=houses_count)
+
+@app.route("/api/city_name")
+def get_current_city():
+    """当前ip的城市定位"""
+    pass
+
+@app.route("/api/adcode")
+def get_adcode():
+    """当前城市所对应的adcode"""
+    pass
+
+
+@app.route("/api/weather")
+def get_weather():
+    """当前城市的天气情况"""
+    pass
 
 
 if __name__ == '__main__':

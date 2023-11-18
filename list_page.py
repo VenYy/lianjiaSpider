@@ -1,8 +1,8 @@
 import math
 import random
 
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
-from sqlalchemy import not_, func, or_
+from flask import Blueprint, render_template, request, jsonify
+from sqlalchemy import not_, or_
 
 from db.model import Houses, City, District
 from db.settings import db

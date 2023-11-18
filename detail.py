@@ -1,9 +1,7 @@
-import json
+from flask import render_template, Blueprint, request, jsonify
+from sqlalchemy import func, distinct
 
-from flask import Flask, render_template, Blueprint, request, jsonify
-from sqlalchemy import func, distinct, desc
-
-from charts import gen_pie, execute_sql
+from charts import execute_sql
 from db.model import City, District, Houses
 from db.settings import db
 

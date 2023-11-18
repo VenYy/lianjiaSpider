@@ -74,44 +74,39 @@ async function initChart() {
 }
 
 // 页面加载完成后执行
-document.addEventListener("DOMContentLoaded", function () {
-    initChart()
-    getCityNameById()
-        .then((data) => {
-            // 处理异步操作成功的结果
-            // console.log(data);
-            var city = data.city
-            geocoding(city)
-                .then((data) => {
-                    // console.log(data)
-                    const adcode = data.geocodes[0].adcode
-                    getWeather(adcode)
-                        .then((data) => {
-                            // console.log(data)
-                            const currentCity = data.lives[0].city
-                            const temperature = data.lives[0].temperature
-                            const weather = data.lives[0].weather
-                            const windDirection = data.lives[0].winddirection
-                            const windPower = data.lives[0].windpower
-                            const humidity = data.lives[0].humidity
-                            const weatherDom = document.getElementById("weatherInfo")
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        initChart()
 
-                            $("#city").text(currentCity)
-                            $("#temperature").text(temperature + "℃")
-                            $("#weather .weatherkey").text(weather)
-                            $("#weather img").attr('src', getIcon(weather))
+        const cityData = await getCityNameByIP()
+        console.log("基于IP定位的结果: ", cityData)
+        const currentCity = cityData.city
 
-                            $("#windpower").text("风速: " + windPower + "级")
-                            $("#winddirection").text("风向: " + windDirection)
-                            $("#humidity").text("湿度: " + humidity + "%")
+        const geoData = await geocoding(currentCity)
+        console.log("城市编码信息: ", geoData)
+        const currentCityAdCode = geoData.geocodes[0].adcode
 
-                        })
-                })
-        })
-        .catch((error) => {
-            // 处理异步操作失败的情况
-            console.error(error);
-        });
+        const weatherData = await getWeather(currentCityAdCode)
+        console.log("当前城市天气信息: ", weatherData)
+        const temperature = weatherData.lives[0].temperature
+        const weather = weatherData.lives[0].weather
+        const windDirection = weatherData.lives[0].winddirection
+        const windPower = weatherData.lives[0].windpower
+        const humidity = weatherData.lives[0].humidity
+        const weatherDom = document.getElementById("weatherInfo")
+
+        $("#city").text(currentCity)
+        $("#temperature").text(temperature + "℃")
+        $("#weather .weatherkey").text(weather)
+        $("#weather img").attr('src', getIcon(weather))
+
+        $("#windpower").text("风速: " + windPower + "级")
+        $("#winddirection").text("风向: " + windDirection)
+        $("#humidity").text("湿度: " + humidity + "%")
+
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 // 获取当前城市的天气信息
@@ -137,7 +132,7 @@ function getWeather(adcode) {
 }
 
 // 使用高德地图api完成当前ip城市定位
-function getCityNameById() {
+function getCityNameByIP() {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: `https://restapi.amap.com/v3/ip?key=${apiKey}`,
