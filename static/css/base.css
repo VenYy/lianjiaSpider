@@ -44,6 +44,11 @@
     box-shadow: 1px 1px 3px #0f0f0f;
 }
 
+.toast {
+    position: fixed;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
 .toast .rounded {
     width: 30px;
     height: 30px;

@@ -24,16 +24,24 @@
             var toastEl = document.querySelector('.toast');
             // 创建Bootstrap的Toast实例
             var toast = new bootstrap.Toast(toastEl);
-            // 在页面加载后一段时间显示Toast
-            setTimeout(function () {
-                // 显示Toast
-                toast.show();
-                // 设置一定的延迟后自动关闭Toast
+            // 仅在第一次打开页面时显示Toast
+            var isFirstVisit = localStorage.getItem("firstVisit")
+            if (!isFirstVisit) {
+                // 在页面加载后一段时间显示Toast
                 setTimeout(function () {
-                    // 关闭Toast
-                    toast.hide();
-                }, 5000);
-            }, 500);
+                    // 显示Toast
+                    toast.show();
+
+                    // 标记已访问过
+                    localStorage.setItem("firstVisit", true)
+                    // 设置一定的延迟后自动关闭Toast
+                    setTimeout(function () {
+                        // 关闭Toast
+                        toast.hide();
+                    }, 5000);
+                }, 500);
+            }
+
         });
     </script>
 </head>
@@ -71,7 +79,19 @@
         </div>
     </div>
 {% endblock %}
-<div id="content">{% block content %} {% endblock %}</div>
+<div id="content">
+    <div class="toast bottom-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="{{ url_for('static', filename='image/favicon.png') }}" class="rounded me-2" alt="...">
+            <strong class="me-auto">房源数据可视化系统</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            点击"OPEN"可打开侧边栏
+        </div>
+    </div>
+    {% block content %} {% endblock %}
+</div>
 
 </body>
 </html>
